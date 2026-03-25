@@ -3,10 +3,12 @@ using StarPublications.Services;
 
 namespace StarPublications.ViewModels;
 
-public class MainViewModel : BaseViewModel
+public class MainViewModel : BaseViewModel, IDisposable
 {
+    private readonly PubsDbContext _context;
     private BaseViewModel? _currentViewModel;
     private int _selectedTabIndex;
+    private bool _disposed;
 
     public BaseViewModel? CurrentViewModel
     {
@@ -26,13 +28,22 @@ public class MainViewModel : BaseViewModel
 
     public MainViewModel()
     {
-        var context = new PubsDbContext();
-        var salesService = new SalesOrderService(context);
-        var bookService = new BookService(context);
-        var publisherService = new PublisherService(context);
+        _context = new PubsDbContext();
+        var salesService = new SalesOrderService(_context);
+        var bookService = new BookService(_context);
+        var publisherService = new PublisherService(_context);
 
         SalesOrderViewModel = new SalesOrderViewModel(salesService, bookService);
         BookSearchViewModel = new BookSearchViewModel(bookService);
         PublisherSearchViewModel = new PublisherSearchViewModel(publisherService);
+    }
+
+    public void Dispose()
+    {
+        if (!_disposed)
+        {
+            _context.Dispose();
+            _disposed = true;
+        }
     }
 }

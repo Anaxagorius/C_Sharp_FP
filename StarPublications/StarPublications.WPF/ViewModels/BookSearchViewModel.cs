@@ -25,8 +25,14 @@ public class BookSearchViewModel : BaseViewModel
     public ObservableCollection<Store> StoresWithBook
     {
         get => _storesWithBook;
-        set => SetProperty(ref _storesWithBook, value);
+        set
+        {
+            SetProperty(ref _storesWithBook, value);
+            OnPropertyChanged(nameof(HasNoStores));
+        }
     }
+
+    public bool HasNoStores => _selectedBook != null && _storesWithBook.Count == 0;
 
     public Title? SelectedBook
     {
@@ -35,7 +41,11 @@ public class BookSearchViewModel : BaseViewModel
         {
             SetProperty(ref _selectedBook, value);
             if (value != null) _ = LoadStoresWithBookAsync(value.TitleId);
-            else StoresWithBook.Clear();
+            else
+            {
+                StoresWithBook.Clear();
+                OnPropertyChanged(nameof(HasNoStores));
+            }
         }
     }
 
