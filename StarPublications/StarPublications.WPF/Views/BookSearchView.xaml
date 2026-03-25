@@ -74,7 +74,7 @@
 
         <!-- Book Detail Panel -->
         <Border Grid.Row="2" Style="{StaticResource CardStyle}" Margin="12,6,12,6"
-                Visibility="{Binding SelectedBook, Converter={StaticResource BoolToVisibilityConverter}}">
+                Visibility="{Binding IsBookSelected, Converter={StaticResource BoolToVisibilityConverter}}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

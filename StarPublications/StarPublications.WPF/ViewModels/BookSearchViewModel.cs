@@ -34,12 +34,15 @@ public class BookSearchViewModel : BaseViewModel
 
     public bool HasNoStores => _selectedBook != null && _storesWithBook.Count == 0;
 
+    public bool IsBookSelected => _selectedBook != null;
+
     public Title? SelectedBook
     {
         get => _selectedBook;
         set
         {
             SetProperty(ref _selectedBook, value);
+            OnPropertyChanged(nameof(IsBookSelected));
             if (value != null) _ = LoadStoresWithBookAsync(value.TitleId);
             else
             {

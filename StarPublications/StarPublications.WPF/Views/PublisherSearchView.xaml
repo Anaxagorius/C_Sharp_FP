@@ -73,7 +73,7 @@
 
         <!-- Publisher Detail and Books Panel -->
         <Border Grid.Row="2" Style="{StaticResource CardStyle}" Margin="12,6,12,6"
-                Visibility="{Binding SelectedPublisher, Converter={StaticResource BoolToVisibilityConverter}}">
+                Visibility="{Binding IsPublisherSelected, Converter={StaticResource BoolToVisibilityConverter}}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>

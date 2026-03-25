@@ -21,10 +21,16 @@ public class PublisherSearchViewModel : BaseViewModel
         set => SetProperty(ref _publishers, value);
     }
 
+    public bool IsPublisherSelected => _selectedPublisher != null;
+
     public Publisher? SelectedPublisher
     {
         get => _selectedPublisher;
-        set => SetProperty(ref _selectedPublisher, value);
+        set
+        {
+            SetProperty(ref _selectedPublisher, value);
+            OnPropertyChanged(nameof(IsPublisherSelected));
+        }
     }
 
     public string SearchTerm
